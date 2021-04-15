@@ -34,17 +34,4 @@ export class UsersService {
   remove(id: number) {
     return this.userRepository.delete(id);
   }
-
-  async upsertByPhoneNumber(phoneNumber: string): Promise<User> {
-    const result = await this.userRepository
-      .createQueryBuilder()
-      .insert()
-      .values({ phoneNumber })
-      .onConflict(`("phoneNumber") DO UPDATE SET "isVerified" = :isVerified`)
-      .setParameter('isVerified', false)
-      .returning('*')
-      .execute();
-
-    return result.raw[0];
-  }
 }
