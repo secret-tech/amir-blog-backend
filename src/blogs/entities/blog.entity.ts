@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Post } from '../../posts/entities/post.entity';
 
 @Entity()
@@ -9,6 +16,12 @@ export class Blog {
   @Column()
   title: string;
 
-  @OneToMany(() => Post, (post) => post.id)
-  posts: Post[];
+  @ManyToOne(() => Post, (post) => post.id)
+  posts: Post;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
