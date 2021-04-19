@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import configuration from './config/configuration';
 import { BlogsModule } from './blogs/blogs.module';
 import { PostsModule } from './posts/posts.module';
-// import { EditorModule } from './editor/editor.module';
+import { BackofficeModule } from './backoffice/backoffice.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { PostsModule } from './posts/posts.module';
     UsersModule,
     BlogsModule,
     PostsModule,
-    // EditorModule,
+    BackofficeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
