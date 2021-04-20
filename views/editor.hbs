@@ -4,7 +4,8 @@
     <meta charset="utf-8">
 
     <!-- Include Editor style. -->
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 
 <style>
@@ -1082,8 +1083,7 @@
             <h1 data-placeholder="Title" id="title" data-label="Title" contenteditable="true" class=""></h1>
             <article id="_tl_editor" class="tl_article_content ql-container">
                 <div class="ql-editor" contenteditable="true" dir="auto">
-                    <address data-placeholder="Your name" id="author" data-label="Author" class=""></address>
-                    <p data-placeholder="Your story..." id="content" class=""></p></div>
+                    <p data-placeholder="Your story..." class="empty"><br></p></div>
                 <div id="_tl_link_tooltip" class="tl_link_tooltip"></div>
                 <div id="_tl_tooltip" class="tl_tooltip" style="left: -78px; top: -9px;" data-hover="_link_button">
                     <div class="buttons">
@@ -1148,7 +1148,7 @@
         e.preventDefault();
         const data = {
             title: $('h1#title').text(),
-            content: $("p#content").text(),
+            content: $('.ql-editor').html(),
         }
 
         $.ajax({
@@ -1156,11 +1156,10 @@
             type: 'POST',
             cache: false,
             data: data,
-            success: function (data) {
-                alert('Success!sent for moderation')
-                console.log('data', data)
+            success: function () {
+                alert('Sent for moderation')
                 $('h1#title').html('');
-                $("p#content").html('')
+                $(".ql-editor").html('')
 
             }
             , error: function (jqXHR, textStatus, err) {

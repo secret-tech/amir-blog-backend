@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -7,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Post {
+export class Post extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,6 +22,11 @@ export class Post {
     nullable: false,
   })
   content: string;
+
+  @Column({
+    default: false,
+  })
+  isPublished: boolean;
 
   @CreateDateColumn()
   createdAt: Date;

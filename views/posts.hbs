@@ -9,9 +9,11 @@
     {{#if posts.length}}
         <ul class="list-group">
             {{#each posts}}
-                <li class="list-group-item list-group-item-action">
-                    <a href="/posts/{{id}}">{{title}}</a>
-                </li>
+                {{#if isPublished}}
+                    <li class="list-group-item list-group-item-action">
+                        <a href="/posts/{{id}}">{{title}}</a>
+                    </li>
+                {{/if}}
             {{/each}}
         </ul>
     {{else}}
