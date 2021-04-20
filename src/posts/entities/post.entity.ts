@@ -23,6 +23,11 @@ export class Post extends BaseEntity {
   })
   content: string;
 
+  @Column({
+    default: false,
+  })
+  isPublished: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

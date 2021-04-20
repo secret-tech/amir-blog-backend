@@ -36,6 +36,7 @@ export class PostsController {
     const post = await this.postsService.findById(+id, {
       order: { createdAt: 'DESC' },
     });
+
     return { ...post };
   }
 
