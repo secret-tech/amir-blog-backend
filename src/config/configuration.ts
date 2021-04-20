@@ -1,4 +1,3 @@
-import { JwtModuleOptions } from '@nestjs/jwt';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
@@ -6,7 +5,6 @@ export interface Configuration {
   database: TypeOrmModuleOptions;
   app_port: number;
   app_host: string;
-  jwt: JwtModuleOptions;
 }
 
 export default () =>
@@ -23,8 +21,4 @@ export default () =>
     },
     app_port: parseInt(process.env.APP_PORT, 10) || 3000,
     app_host: process.env.APP_HOST || 'http://localhost',
-    jwt: {
-      secret: process.env.JWT_SECRET || 'veryRand0mStr1n9',
-      expires: parseInt(process.env.JWT_EXPIRE, 10) || 3600,
-    },
   };
