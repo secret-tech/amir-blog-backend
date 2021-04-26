@@ -1143,6 +1143,38 @@
         toolbarInline: true,
         charCounterCount: true,
         initOnClick: true,
+        // Set the image upload parameter.
+        imageUploadParam: 'image_param',
+        // Set the image upload URL.
+        imageUploadURL: '/images/upload',
+        // Additional upload params.
+        imageUploadParams: {id: 'my_editor'},
+        // Set request type.
+        imageUploadMethod: 'POST',
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+        events: {
+            'image.inserted': function ($img, response) {
+                // Do something here.
+                // this is the editor instance.
+                console.log($img);
+            },
+            'image.beforeUpload': function (images) {
+                // Do something here.
+                // this is the editor instance.
+                console.log(images);
+            },
+            'image.error': function (error, response) {
+
+                // Parsing response failed.
+                if (error.code == 4) {
+                    console.log(error)
+                }
+                // Response contains the original server response to the request if available.
+            }
+        }
     })
     $('#_publish_button').click((e) => {
         e.preventDefault();

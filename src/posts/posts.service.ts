@@ -15,6 +15,8 @@ export class PostsService {
     return this.postsRepository.save(createPostDto);
   }
 
+
+
   findAll() {
     return this.postsRepository.find();
   }
