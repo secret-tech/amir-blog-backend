@@ -11,4 +11,12 @@ export class AppController {
     const data = await this.appService.editor();
     return { ...data };
   }
+
+  @Get()
+  @Render('index')
+  async index() {
+    return {
+      title: 'index page',
+    };
+  }
 }
