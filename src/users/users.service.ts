@@ -40,6 +40,7 @@ export class UsersService {
 
     const profile = response.data;
     const user = await this.userRepository.create({
+      status: profile.data.last_status,
       ...profile.data,
     });
 

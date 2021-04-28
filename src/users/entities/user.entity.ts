@@ -30,6 +30,9 @@ export class User extends BaseEntity {
   @Column()
   phone: string;
 
+  @Column()
+  status: string;
+
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
