@@ -18,6 +18,7 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   app.set('view options', { layout: 'layout' });
   hbs.registerPartials(join(__dirname, '..', 'views/partials'));
+  hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
 
   app.enableCors();
 

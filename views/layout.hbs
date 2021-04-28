@@ -1123,6 +1123,11 @@
                     console.log(error)
                 }
                 // Response contains the original server response to the request if available.
+            },
+            'input': function (inputEvent) {
+                // Do something here.
+                // this is the editor instance.
+                $('.ql-editor p').removeClass('empty')
             }
         }
     })

@@ -1,13 +1,32 @@
-{{#if posts.length}}
-    <ul class="list-group">
-        {{#each posts}}
-            {{#if isPublished}}
-                <li class="list-group-item list-group-item-action">
-                    <a href="/posts/{{id}}">{{title}}</a>
-                </li>
-            {{/if}}
-        {{/each}}
-    </ul>
-{{else}}
-    <p>no posts</p>
-{{/if}}
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+    <div class="col-md-12">
+        <h1 class="my-4">Список постов</h1>
+        <!-- Blog Post -->
+        {{#if posts.length}}
+            <style>
+                .card-text :not(:first-child) {display: none}
+            </style>
+            {{#each posts}}
+                {{#if isPublished}}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{title}}</h2>
+                            <div class="card-text">{{{content}}}</div>
+                            <a href="/posts/{{id}}" class="btn btn-primary">Читать далее &rarr;</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{dateFormat createdAt "dddd, MMMM Do YYYY, h:mm:ss a"}} by voogie
+                        </div>
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+        {{else}}
+            <p>no posts</p>
+        {{/if}}
+    </div>
+</div>
+
