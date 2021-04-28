@@ -10,6 +10,7 @@ import { PostsModule } from './posts/posts.module';
 import { BackofficeModule } from './backoffice/backoffice.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { ImagesModule } from './images/images.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ImagesModule } from './images/images.module';
     PostsModule,
     BackofficeModule,
     ImagesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

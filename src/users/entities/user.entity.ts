@@ -6,7 +6,6 @@ import {
   JoinColumn,
   BaseEntity,
 } from 'typeorm';
-import { UserRole } from '../interfaces/users.interface';
 import { Blog } from '../../blogs/entities/blog.entity';
 
 @Entity()
@@ -21,52 +20,18 @@ export class User extends BaseEntity {
   @Column({
     nullable: true,
   })
-  firstName: string;
-
-  @Column({
-    nullable: true,
-  })
-  lastName: string;
-
-  @Column({
-    nullable: true,
-  })
-  patronymic: string;
+  name: string;
 
   @Column({
     nullable: true,
   })
   email: string;
 
-  @Column({
-    nullable: false,
-    unique: true,
-  })
-  phoneNumber: string;
+  @Column()
+  phone: string;
 
-  @Column({
-    default: 0,
-  })
-  state: number;
-
-  @Column({
-    default: false,
-  })
-  isVerified: boolean;
-
-  @Column({
-    type: 'timestamp',
-    nullable: true,
-  })
-  lastLoginDate: Date;
-
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    nullable: false,
-    default: UserRole.user,
-  })
-  role: UserRole;
+  @Column()
+  status: string;
 
   @Column({
     type: 'timestamp',
