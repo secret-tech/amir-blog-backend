@@ -1,9 +1,13 @@
 import { Controller, Get, Param, Render, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+import { PostsService } from './posts/posts.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly postsService: PostsService,
+  ) {}
 
   @Get('editor')
   @Render('editor')
@@ -13,10 +17,9 @@ export class AppController {
   }
 
   @Get()
-  @Render('index')
+  @Render('posts')
   async index() {
-    return {
-      title: 'index page',
-    };
+    const posts = await this.postsService.findAll();
+    return { posts: posts };
   }
 }
