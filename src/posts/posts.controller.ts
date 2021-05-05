@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Render,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
@@ -28,7 +27,7 @@ export class PostsController {
 
   @Get()
   @Render('posts')
-  async findAll(@Res() res: Response) {
+  async findAll() {
     const posts = await this.postsService.findAll();
     return { posts: posts, title: 'Список постов' };
   }

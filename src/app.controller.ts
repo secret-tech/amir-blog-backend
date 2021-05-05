@@ -1,8 +1,7 @@
-import { Controller, Get, Render, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Render, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PostsService } from './posts/posts.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { Request, Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -14,14 +13,14 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('editor')
   @Render('editor')
-  async editor(@Req() req: Request, @Res() res: Response) {
+  async editor() {
     const data = await this.appService.editor();
     return { ...data };
   }
 
   @Get()
   @Render('posts')
-  async index(@Req() req: Request, @Res() res: Response) {
+  async index() {
     const posts = await this.postsService.findAll();
     return { posts: posts, title: 'Главная' };
   }
