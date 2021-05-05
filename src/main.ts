@@ -6,14 +6,12 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import configuration from './config/configuration';
 import hbs = require('hbs');
-import * as cookieParser from 'cookie-parser';
 
 const config = configuration();
 
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
