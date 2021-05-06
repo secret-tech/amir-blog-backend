@@ -6,7 +6,7 @@ export class AppService {
     return {
       user: 'test@mail.ru',
       blog: 'test',
-      title: 'first blog',
+      title: 'Добавить пост',
     };
   }
 }

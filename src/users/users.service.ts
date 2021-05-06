@@ -1,4 +1,4 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -8,7 +8,6 @@ import { User } from './entities/user.entity';
 @Injectable()
 export class UsersService {
   constructor(
-    private readonly httpService: HttpService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
@@ -28,24 +27,8 @@ export class UsersService {
     return this.userRepository.findOne(id, options);
   }
 
-  async getProfile(token: string, x_sign: string) {
-    const response = await this.httpService
-      .get(`https://account.amir.capital/account/v2/me`, {
-        headers: {
-          authorization: 'Bearer ' + token,
-          'x-sign': x_sign,
-        },
-      })
-      .toPromise();
-
-    const profile = response.data;
-    const user = await this.userRepository.create({
-      status: profile.data.last_status,
-      ...profile.data,
-    });
-
-    await this.userRepository.save(user);
-    return profile;
+  async findByEmail(email: string, options?: FindOneOptions<User>) {
+    return this.userRepository.findOne({ email: email }, options);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

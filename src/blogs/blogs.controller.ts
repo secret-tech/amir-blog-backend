@@ -1,12 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('blogs')
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(createBlogDto: CreateBlogDto) {
     const blog = await this.blogsService.create(createBlogDto);
@@ -23,11 +33,13 @@ export class BlogsController {
     return this.blogsService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post(':id/update')
   update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
     return this.blogsService.update(+id, updateBlogDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.blogsService.remove(+id);

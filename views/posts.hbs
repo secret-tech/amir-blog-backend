@@ -6,16 +6,13 @@
         <h1 class="my-4">Список постов</h1>
         <!-- Blog Post -->
         {{#if posts.length}}
-            <style>
-                .card-text :not(:first-child) {display: none}
-            </style>
             {{#each posts}}
                 {{#if isPublished}}
                     <div class="card mb-4">
                         <div class="card-body">
                             <h2 class="card-title">{{title}}</h2>
                             <div class="card-text">{{{content}}}</div>
-                            <a href="/posts/{{id}}" class="btn btn-primary">Читать далее &rarr;</a>
+                            <a href="/posts/{{id}}" class="btn btn-light">Читать далее &rarr;</a>
                         </div>
                         <div class="card-footer text-muted">
                             {{dateFormat createdAt "dddd, MMMM Do YYYY, h:mm:ss a"}} by voogie

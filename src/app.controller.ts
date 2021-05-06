@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Render, Res } from '@nestjs/common';
+import { Controller, Get, Render, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PostsService } from './posts/posts.service';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Controller()
 export class AppController {
@@ -9,6 +10,7 @@ export class AppController {
     private readonly postsService: PostsService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('editor')
   @Render('editor')
   async editor() {
@@ -20,6 +22,6 @@ export class AppController {
   @Render('posts')
   async index() {
     const posts = await this.postsService.findAll();
-    return { posts: posts };
+    return { posts: posts, title: 'Главная' };
   }
 }
