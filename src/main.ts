@@ -12,6 +12,16 @@ const config = configuration();
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.use(function (req, res, next) {
+    // const token = req.query.token.toString() || req.header('authorization');
+    // const x_sign = req.query.x_sign.toString() || req.header('x-sign');
+    const token = 'Bearer 3aU63Lm9DM1RPNCr2K8YHSWGL2UWAmq4QFCvNVVV1qMT';
+    const x_sign =
+      '1ecbf40c0f885399907f67fcd4bb57af7c4241a25b5e13bd5aa0e636decdd661!c2bd85a310ce099f0f9c61992770d24ab0eaeadbdccab6aeec7d1543903e2e4b';
+    req.amirToken = token;
+    req.xSign = x_sign;
+    next();
+  });
   app.useGlobalPipes(new ValidationPipe());
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));

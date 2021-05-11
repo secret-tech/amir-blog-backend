@@ -1,11 +1,21 @@
-import { Controller, Get, Render, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Render,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { PostsService } from './posts/posts.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { AuthService } from './auth/auth.service';
 
 @Controller()
 export class AppController {
   constructor(
+    private readonly authService: AuthService,
     private readonly appService: AppService,
     private readonly postsService: PostsService,
   ) {}
