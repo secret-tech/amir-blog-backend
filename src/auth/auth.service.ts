@@ -1,6 +1,7 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { BlogsService } from '../blogs/blogs.service';
 
 @Injectable()
 export class AuthService {
@@ -8,6 +9,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly httpService: HttpService,
     private readonly jwtService: JwtService,
+    private readonly blogsService: BlogsService,
   ) {}
 
   async getProfile(token: string, x_sign: string) {
@@ -21,12 +23,18 @@ export class AuthService {
       .toPromise();
 
     const profile = response.data;
-    let user = await this.usersService.findByEmail(profile.data.email);
+    let user = await this.usersService.findByEmail(profile.data.email, {
+      relations: ['blog'],
+    });
 
     if (!user) {
+      const blog = await this.blogsService.create({
+        title: `${profile.data.name} blog`,
+      });
       user = await this.usersService.create({
         status: profile.data.last_status,
         ...profile.data,
+        blog,
       });
     }
 

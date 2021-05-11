@@ -1151,6 +1151,9 @@
                 success: function (data) {
                     console.log(data)
                     localStorage.setItem('access_blog_token', data.access_blog_token);
+                    const profileLink = $('a#profile')
+                    const profileUrl = $(profileLink).attr('href') + `/${data.user.id}`
+                    $(profileLink).attr('href', profileUrl);
                 }
                 , error: function (jqXHR, textStatus, err) {
                     console.log('text status ' + textStatus + ', err ' + err)
@@ -1167,55 +1170,53 @@
     <script type="text/javascript" id="editor" src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
     <!-- Initialize the editor. -->
     <script>
-        $(function (){
-            if ($('script#editor')) {
-                editor = new FroalaEditor('#_tl_editor', {
-                    toolbarButtons: ['fontFamily', '|', 'fontSize', '|', 'paragraphFormat', '|', 'bold', 'italic', 'underline', 'undo', 'redo', 'codeView'],
-                    fontFamilySelection: true,
-                    fontSizeSelection: true,
-                    paragraphFormatSelection: true,
-                    toolbarInline: true,
-                    charCounterCount: true,
-                    initOnClick: true,
-                    // Set the image upload parameter.
-                    imageUploadParam: 'image_param',
-                    // Set the image upload URL.
-                    imageUploadURL: '/images/upload',
-                    // Additional upload params.
-                    imageUploadParams: {id: 'my_editor'},
-                    // Set request type.
-                    imageUploadMethod: 'POST',
-                    // Set max image size to 5MB.
-                    imageMaxSize: 5 * 1024 * 1024,
-                    // Allow to upload PNG and JPG.
-                    imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-                    events: {
-                        'image.inserted': function ($img, response) {
-                            // Do something here.
-                            // this is the editor instance.
-                            console.log($img);
-                        },
-                        'image.beforeUpload': function (images) {
-                            // Do something here.
-                            // this is the editor instance.
-                            console.log(images);
-                        },
-                        'image.error': function (error, response) {
-                            // Parsing response failed.
-                            if (error.code == 4) {
-                                console.log(error)
-                            }
-                            // Response contains the original server response to the request if available.
-                        },
-                        'input': function (inputEvent) {
-                            // Do something here.
-                            // this is the editor instance.
-                            $('.ql-editor p').removeClass('empty')
+        setTimeout(function () {
+            editor = new FroalaEditor('#_tl_editor', {
+                toolbarButtons: ['fontFamily', '|', 'fontSize', '|', 'paragraphFormat', '|', 'bold', 'italic', 'underline', 'undo', 'redo', 'codeView'],
+                fontFamilySelection: true,
+                fontSizeSelection: true,
+                paragraphFormatSelection: true,
+                toolbarInline: true,
+                charCounterCount: true,
+                initOnClick: true,
+                // Set the image upload parameter.
+                imageUploadParam: 'image_param',
+                // Set the image upload URL.
+                imageUploadURL: '/images/upload',
+                // Additional upload params.
+                imageUploadParams: {id: 'my_editor'},
+                // Set request type.
+                imageUploadMethod: 'POST',
+                // Set max image size to 5MB.
+                imageMaxSize: 5 * 1024 * 1024,
+                // Allow to upload PNG and JPG.
+                imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+                events: {
+                    'image.inserted': function ($img, response) {
+                        // Do something here.
+                        // this is the editor instance.
+                        console.log($img);
+                    },
+                    'image.beforeUpload': function (images) {
+                        // Do something here.
+                        // this is the editor instance.
+                        console.log(images);
+                    },
+                    'image.error': function (error, response) {
+                        // Parsing response failed.
+                        if (error.code == 4) {
+                            console.log(error)
                         }
+                        // Response contains the original server response to the request if available.
+                    },
+                    'input': function (inputEvent) {
+                        // Do something here.
+                        // this is the editor instance.
+                        $('.ql-editor p').removeClass('empty')
                     }
-                })
-            }
-        })
+                }
+            })
+        },1000)
     </script>
 {{/ifEquals}}
 </body>
