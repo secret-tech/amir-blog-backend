@@ -1142,7 +1142,8 @@
 </script>
 <script>
     $(function () {
-        const token = localStorage.getItem('access_blog_token')
+        const token = localStorage.getItem('access_blog_token');
+        const userId = localStorage.getItem('userId')
         if (!token){
             $.ajax({
                 url: '/auth/profile',
@@ -1151,14 +1152,18 @@
                 success: function (data) {
                     console.log(data)
                     localStorage.setItem('access_blog_token', data.access_blog_token);
-                    const profileLink = $('a#profile')
-                    const profileUrl = $(profileLink).attr('href') + `/${data.user.id}`
-                    $(profileLink).attr('href', profileUrl);
+                    localStorage.setItem('userId', data.user.id);
                 }
                 , error: function (jqXHR, textStatus, err) {
                     console.log('text status ' + textStatus + ', err ' + err)
                 }
             })
+        }
+
+        if (token && userId){
+            const profileLink = $('a#profile')
+            const profileUrl = $(profileLink).attr('href') + `/${userId}`
+            $(profileLink).attr('href', profileUrl);
         }
     })
 </script>
