@@ -15,7 +15,7 @@ async function bootstrap() {
   app.use(function (req, res, next) {
     // const token = req.query.token.toString() || req.header('authorization');
     // const x_sign = req.query.x_sign.toString() || req.header('x-sign');
-    const token = 'Bearer 3aU63Lm9DM1RPNCr2K8YHSWGL2UWAmq4QFCvNVVV1qMT';
+    const token = 'Bearer G6gShpiwzvjYJ7DcWA6sHVpcozMz5Zu7W8BnRcp3w5KA';
     const x_sign =
       '1ecbf40c0f885399907f67fcd4bb57af7c4241a25b5e13bd5aa0e636decdd661!c2bd85a310ce099f0f9c61992770d24ab0eaeadbdccab6aeec7d1543903e2e4b';
     req.amirToken = token;
@@ -29,6 +29,9 @@ async function bootstrap() {
   app.set('view options', { layout: 'layout' });
   hbs.registerPartials(join(__dirname, '..', 'views/partials'));
   hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
+  hbs.registerHelper('ifEquals', function (arg1, arg2, options) {
+    return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+  });
 
   app.enableCors();
 

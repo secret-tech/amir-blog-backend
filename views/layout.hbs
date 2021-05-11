@@ -4,9 +4,7 @@
     <title>{{title}}</title>
     <meta charset="utf-8">
 
-    <!-- Include Editor style. -->
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet"
-          type="text/css"/>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -1084,85 +1082,15 @@
             {{{body}}}
         </div>
     </div>
-    <div class="profile" style="display: none;">
-        <span id="token">{{user.access_blog_token}}</span>
-    </div>
 </div>
 
 
-<!-- Include Editor JS files. -->
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
+
+
 <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-<script>
-    $(function () {
-            $.ajax({
-                url: '/auth/profile',
-                type: 'GET',
-                cache: false,
-                success: function (data) {
-                    console.log(data)
-                    localStorage.setItem('access_blog_token', data.access_blog_token);
-                }
-                , error: function (jqXHR, textStatus, err) {
-                    console.log('text status ' + textStatus + ', err ' + err)
-                }
-            })
-    })
-</script>
-<!-- Initialize the editor. -->
-<script>
-        editor = new FroalaEditor('#_tl_editor', {
-        toolbarButtons: ['fontFamily', '|', 'fontSize', '|', 'paragraphFormat', '|', 'bold', 'italic', 'underline', 'undo', 'redo', 'codeView'],
-        fontFamilySelection: true,
-        fontSizeSelection: true,
-        paragraphFormatSelection: true,
-        toolbarInline: true,
-        charCounterCount: true,
-        initOnClick: true,
-        // Set the image upload parameter.
-        imageUploadParam: 'image_param',
-        // Set the image upload URL.
-        imageUploadURL: '/images/upload',
-        // Additional upload params.
-        imageUploadParams: {id: 'my_editor'},
-        // Set request type.
-        imageUploadMethod: 'POST',
-        // Set max image size to 5MB.
-        imageMaxSize: 5 * 1024 * 1024,
-        // Allow to upload PNG and JPG.
-        imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-        events: {
-            'image.inserted': function ($img, response) {
-                // Do something here.
-                // this is the editor instance.
-                console.log($img);
-            },
-            'image.beforeUpload': function (images) {
-                // Do something here.
-                // this is the editor instance.
-                console.log(images);
-            },
-            'image.error': function (error, response) {
-
-                // Parsing response failed.
-                if (error.code == 4) {
-                    console.log(error)
-                }
-                // Response contains the original server response to the request if available.
-            },
-            'input': function (inputEvent) {
-                // Do something here.
-                // this is the editor instance.
-                $('.ql-editor p').removeClass('empty')
-            }
-        }
-    })
-</script>
 <script>
     $('#_publish_button').click((e) => {
         e.preventDefault();
@@ -1212,5 +1140,83 @@
         });
     })
 </script>
+<script>
+    $(function () {
+        const token = localStorage.getItem('access_blog_token')
+        if (!token){
+            $.ajax({
+                url: '/auth/profile',
+                type: 'GET',
+                cache: false,
+                success: function (data) {
+                    console.log(data)
+                    localStorage.setItem('access_blog_token', data.access_blog_token);
+                }
+                , error: function (jqXHR, textStatus, err) {
+                    console.log('text status ' + textStatus + ', err ' + err)
+                }
+            })
+        }
+    })
+</script>
+
+
+{{#ifEquals title "Добавить пост"}}
+    <!-- Include Editor style. -->
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" id="editor" src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
+    <!-- Initialize the editor. -->
+    <script>
+        $(function (){
+            if ($('script#editor')) {
+                editor = new FroalaEditor('#_tl_editor', {
+                    toolbarButtons: ['fontFamily', '|', 'fontSize', '|', 'paragraphFormat', '|', 'bold', 'italic', 'underline', 'undo', 'redo', 'codeView'],
+                    fontFamilySelection: true,
+                    fontSizeSelection: true,
+                    paragraphFormatSelection: true,
+                    toolbarInline: true,
+                    charCounterCount: true,
+                    initOnClick: true,
+                    // Set the image upload parameter.
+                    imageUploadParam: 'image_param',
+                    // Set the image upload URL.
+                    imageUploadURL: '/images/upload',
+                    // Additional upload params.
+                    imageUploadParams: {id: 'my_editor'},
+                    // Set request type.
+                    imageUploadMethod: 'POST',
+                    // Set max image size to 5MB.
+                    imageMaxSize: 5 * 1024 * 1024,
+                    // Allow to upload PNG and JPG.
+                    imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+                    events: {
+                        'image.inserted': function ($img, response) {
+                            // Do something here.
+                            // this is the editor instance.
+                            console.log($img);
+                        },
+                        'image.beforeUpload': function (images) {
+                            // Do something here.
+                            // this is the editor instance.
+                            console.log(images);
+                        },
+                        'image.error': function (error, response) {
+                            // Parsing response failed.
+                            if (error.code == 4) {
+                                console.log(error)
+                            }
+                            // Response contains the original server response to the request if available.
+                        },
+                        'input': function (inputEvent) {
+                            // Do something here.
+                            // this is the editor instance.
+                            $('.ql-editor p').removeClass('empty')
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+{{/ifEquals}}
 </body>
 </html>
