@@ -15,6 +15,8 @@ async function bootstrap() {
   app.use(function (req, res, next) {
     const token = req.query.token.toString() || req.header('authorization');
     const x_sign = req.query.x_sign.toString() || req.header('x-sign');
+    console.log('token', token);
+    console.log('x-sign', x_sign);
     req.amirToken = token;
     req.xSign = x_sign;
     next();

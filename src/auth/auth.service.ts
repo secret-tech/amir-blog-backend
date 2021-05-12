@@ -16,7 +16,7 @@ export class AuthService {
     const response = await this.httpService
       .get(`https://account.amir.capital/account/v2/me`, {
         headers: {
-          authorization: token,
+          authorization: `Bearer ${token}`,
           'x-sign': x_sign,
         },
       })
