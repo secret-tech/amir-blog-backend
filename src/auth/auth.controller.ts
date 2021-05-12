@@ -8,7 +8,10 @@ export class AuthController {
 
   @Get('profile')
   async getProfile(@Req() req: any, @Res() res: Response) {
-    const profile = await this.authService.getProfile(req.amirToken, req.xSign);
+    const profile = await this.authService.getProfile(
+      req.query.amirToken,
+      req.query.x_sign,
+    );
     return res.json(profile);
   }
 }
