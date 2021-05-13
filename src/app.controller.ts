@@ -42,10 +42,13 @@ export class AppController {
   @Get('profile/:id')
   @Render('profile')
   async renderProfile(@Param('id') id: string) {
-    const profile = await this.usersService.findById(+id);
+    const profile = await this.usersService.findById(+id, {
+      relations: ['blog'],
+    });
     if (!profile) {
       throw new UnauthorizedException(401);
     }
+
     return {
       ...profile,
     };

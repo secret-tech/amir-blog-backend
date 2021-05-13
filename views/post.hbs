@@ -3,10 +3,10 @@
         <h1 dir="auto">{{title}}</h1>
         <address dir="auto">
             <a rel="author">voogie</a>
-            <time datetime={{dateFormat createdAt "dddd, MMMM Do YYYY, h:mm:ss a"}}>{{dateFormat createdAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</time>
+            <time datetime={{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</time>
         </address>
     </header>
-    <article id="_tl_editor" class="tl_article_content ql-container ql-disabled">
+    <article id="_tl_editor" data-id="{{id}}" class="tl_article_content ql-container ql-disabled">
         <div class="ql-editor" contenteditable="false" dir="auto">
             <h1 data-placeholder="Title" data-label="Title">{{title}}</h1>
             {{{content}}}
@@ -35,7 +35,7 @@
     <aside class="tl_article_buttons">
         <div class="account account_top"></div>
         <button id="_edit_button" class="button edit_button">Редактировать</button>
-        <button id="_publish_button" class="button publish_button">Publish</button>
+        <button id="_publish_button" class="button publish_button">Отправить</button>
         <div class="account account_bottom"></div>
         <div id="_error_msg" class="error_msg"></div>
     </aside>

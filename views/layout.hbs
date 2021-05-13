@@ -1087,60 +1087,9 @@
 </div>
 
 
-<script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-    $('#_publish_button').click((e) => {
-        e.preventDefault();
-        const token = localStorage.getItem('access_blog_token');
-        const data = {
-            title: $('h1#title').text(),
-            content: $('.ql-editor').html(),
-        }
-
-        $.ajax({
-            url: '/posts',
-            type: 'POST',
-            cache: false,
-            data: data,
-            headers: {
-                'authorization': `Bearer ${token}`,
-            },
-            success: function () {
-                alert('Отправлено на модерацию!')
-                $('h1#title').html('');
-                $(".ql-editor").html('')
-
-            }
-            , error: function (jqXHR, textStatus, err) {
-                alert('text status ' + textStatus + ', err ' + err)
-            }
-        })
-    })
-    $('#editor').click((e) => {
-        e.preventDefault();
-        const token = localStorage.getItem('access_blog_token')
-        $.ajax({
-            url: "/editor",
-            type: "GET",
-            headers: {
-                'authorization': `Bearer ${token}`,
-            },
-            success: function (data, request, response) {
-                const html = response.responseText;
-                const content = document.createElement('html');
-                content.innerHTML = html;
-                $("html").replaceWith(content)
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        });
-    })
-</script>
-<script>
+    //авторизация
     $(function () {
         const token = localStorage.getItem('access_blog_token');
         const userId = localStorage.getItem('userId');
@@ -1193,6 +1142,116 @@
         }
     }
 </script>
+<script>
+    //открыть редактор
+    $('#editor').click((e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('access_blog_token')
+        $.ajax({
+            url: "/editor",
+            type: "GET",
+            headers: {
+                'authorization': `Bearer ${token}`,
+            },
+            success: function (data, request, response) {
+                const html = response.responseText;
+                const content = document.createElement('html');
+                content.innerHTML = html;
+                $("html").replaceWith(content)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+    })
+    //открыть редактирование поста
+    $('#_edit_button').click((e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('access_blog_token')
+        $.ajax({
+            url: "/editor",
+            type: "GET",
+            headers: {
+                'authorization': `Bearer ${token}`,
+            },
+            success: function (data, request, response) {
+                $('.ql-editor h1').remove()
+                const postId = $('article#_tl_editor').data("id")
+                const postTitle = $('title').text();
+                const postContent = $('#_tl_editor').html()
+
+                const responseText = response.responseText;
+                const html = document.createElement('html');
+                html.innerHTML = responseText;
+                $("html").replaceWith(html)
+                $(".ql-editor").replaceWith(postContent)
+                $('.ql-editor').attr("contenteditable", true)
+                $('h1#title').text(postTitle)
+                $('article').attr('data-id', postId);
+                $('button#_publish_button').attr("id", "update")
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+    })
+    // отправить пост
+    $('#_publish_button').click((e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('access_blog_token');
+        const data = {
+            title: $('h1#title').text(),
+            content: $('.ql-editor').html(),
+        }
+
+        //обновить пост
+        if (e.target.id === 'update'){
+            console.log('update post')
+            const id = $('article#_tl_editor').data('id')
+            $.ajax({
+                url: `${id}/update`,
+                type: 'PATCH',
+                cache: false,
+                data: data,
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                },
+                success: function () {
+                    alert('Отправлено на модерацию!')
+                    $('h1#title').html('');
+                    $(".ql-editor").html('')
+
+                }
+                , error: function (jqXHR, textStatus, err) {
+                    alert('text status ' + textStatus + ', err ' + err)
+                }
+            })
+        }
+
+        // создать пост
+        if (e.target.id === '_publish_button') {
+            $.ajax({
+                url: '/posts',
+                type: 'POST',
+                cache: false,
+                data: data,
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                },
+                success: function () {
+                    alert('Отправлено на модерацию!')
+                    $('h1#title').html('');
+                    $(".ql-editor").html('')
+
+                }
+                , error: function (jqXHR, textStatus, err) {
+                    alert('text status ' + textStatus + ', err ' + err)
+                }
+            })
+        }
+    })
+</script>
+
 
 
 {{#ifEquals title "Добавить пост"}}

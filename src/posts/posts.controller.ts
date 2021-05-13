@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Render,
   UseGuards,
@@ -11,7 +12,6 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('posts')
@@ -43,7 +43,7 @@ export class PostsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post(':id/update')
+  @Patch(':id/update')
   async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     const post = await this.postsService.update(+id, updatePostDto);
     return post;
