@@ -36,6 +36,7 @@ export class AppController {
   @Render('posts')
   async index() {
     const posts = await this.postsService.findAll();
+    console.log(posts);
     return { posts: posts, title: 'Главная' };
   }
 

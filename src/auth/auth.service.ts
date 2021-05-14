@@ -27,9 +27,12 @@ export class AuthService {
       relations: ['blog'],
     });
 
+    console.log(user);
+
     if (!user) {
       const blog = await this.blogsService.create({
         title: `${profile.data.name} blog`,
+        description: `my first blog`,
       });
       user = await this.usersService.create({
         status: profile.data.last_status,

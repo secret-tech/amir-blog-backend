@@ -20,6 +20,7 @@ export class PostsService {
       order: {
         createdAt: 'DESC',
       },
+      relations: ['user'],
     });
   }
 

@@ -3,7 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,8 +17,11 @@ export class Blog extends BaseEntity {
   @Column()
   title: string;
 
-  @ManyToOne(() => Post, (post) => post.id)
-  posts: Post;
+  @Column({ type: 'text' })
+  description: string;
+
+  @OneToMany(() => Post, (post) => post.id)
+  posts: Post[];
 
   @CreateDateColumn()
   createdAt: Date;

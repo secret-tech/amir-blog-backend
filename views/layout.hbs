@@ -1098,30 +1098,35 @@
             const amirToken = getURLParameter('token');
             const x_sign = getURLParameter('x_sign');
 
-            $.ajax({
-                url: '/auth/profile',
-                type: 'GET',
-                cache: false,
-                headers: {
-                    'authorization': amirToken,
-                    'x-sign': x_sign,
-                },
-                data: {amirToken, x_sign},
-                success: function (data) {
-                    console.log(data)
-                    localStorage.setItem('access_blog_token', data.access_blog_token);
-                    localStorage.setItem('userId', data.user.id);
-                    setProfileLink(data.user.id)
-
-                }
-                , error: function (jqXHR, textStatus, err) {
-                    console.log('text status ' + textStatus + ', err ' + err)
-                }
-            })
+           if (amirToken && x_sign){
+               $.ajax({
+                   url: '/auth/profile',
+                   type: 'GET',
+                   cache: false,
+                   headers: {
+                       'authorization': amirToken,
+                       'x-sign': x_sign,
+                   },
+                   data: {amirToken, x_sign},
+                   success: function (data) {
+                       console.log(data)
+                       localStorage.setItem('access_blog_token', data.access_blog_token);
+                       localStorage.setItem('userId', data.user.id);
+                       setProfileLink(data.user.id)
+                       $('.nav-item.editor').show()
+                   }
+                   , error: function (jqXHR, textStatus, err) {
+                       console.log('text status ' + textStatus + ', err ' + err)
+                   }
+               })
+           }
         }
 
         if (token && userId) {
             setProfileLink(userId)
+            $('ul#userNavigation').show()
+            $('.tl_article_buttons').show()
+            $('.nav-item.editor').show()
         }
     })
 
@@ -1249,6 +1254,12 @@
                 }
             })
         }
+    })
+    //выход из блога
+    $('a#exit').click((e)=> {
+        e.preventDefault();
+        localStorage.clear();
+        window.location.replace('/')
     })
 </script>
 
