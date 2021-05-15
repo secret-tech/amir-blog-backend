@@ -4,15 +4,28 @@ import { Post } from './entities/post.entity';
 import { FindOneOptions, Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { UsersService } from '../users/users.service';
+import { BlogsService } from '../blogs/blogs.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Post) private readonly postsRepository: Repository<Post>,
+    private readonly usersService: UsersService,
+    private readonly blogsService: BlogsService,
   ) {}
 
   async create(createPostDto: CreatePostDto) {
-    return this.postsRepository.save(createPostDto);
+    const user = await this.usersService.findById(+createPostDto.userId);
+    const blog = await this.blogsService.findById(+createPostDto.blogId);
+    const post = {
+      title: createPostDto.title,
+      content: createPostDto.content,
+      user,
+      blog,
+    };
+
+    return this.postsRepository.save(post);
   }
 
   findAll() {
@@ -20,12 +33,14 @@ export class PostsService {
       order: {
         createdAt: 'DESC',
       },
-      relations: ['user'],
+      relations: ['user', 'blog'],
     });
   }
 
   findOne(id: number) {
-    return this.postsRepository.findOne(id);
+    return this.postsRepository.findOne(id, {
+      relations: ['user', 'blog'],
+    });
   }
 
   async findById(id: number, options?: FindOneOptions<Post>): Promise<Post> {

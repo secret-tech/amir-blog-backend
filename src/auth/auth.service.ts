@@ -24,10 +24,8 @@ export class AuthService {
 
     const profile = response.data;
     let user = await this.usersService.findByEmail(profile.data.email, {
-      relations: ['blog'],
+      relations: ['blog', 'posts'],
     });
-
-    console.log(user);
 
     if (!user) {
       const blog = await this.blogsService.create({

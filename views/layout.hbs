@@ -1093,6 +1093,7 @@
     $(function () {
         const token = localStorage.getItem('access_blog_token');
         const userId = localStorage.getItem('userId');
+        const blogId = localStorage.getItem('blogId')
 
         if (!token) {
             const amirToken = getURLParameter('token');
@@ -1112,8 +1113,9 @@
                        console.log(data)
                        localStorage.setItem('access_blog_token', data.access_blog_token);
                        localStorage.setItem('userId', data.user.id);
-                       setProfileLink(data.user.id)
-                       $('.nav-item.editor').show()
+                       localStorage.setItem('blogId', data.user.blog.id);
+                       setProfileLink(data.user.id);
+                       showHidden();
                    }
                    , error: function (jqXHR, textStatus, err) {
                        console.log('text status ' + textStatus + ', err ' + err)
@@ -1122,11 +1124,9 @@
            }
         }
 
-        if (token && userId) {
+        if (token && userId && blogId) {
             setProfileLink(userId)
-            $('ul#userNavigation').show()
-            $('.tl_article_buttons').show()
-            $('.nav-item.editor').show()
+            showHidden();
         }
     })
 
@@ -1134,6 +1134,12 @@
         const profileLink = $('a#profile')
         const profileUrl = $(profileLink).attr('href') + `/${userId}`
         $(profileLink).attr('href', profileUrl);
+    }
+
+    function showHidden() {
+        $('ul#userNavigation').show()
+        $('.tl_article_buttons').show()
+        $('.nav-item.editor').show()
     }
 
     function getURLParameter(sParam) {
@@ -1207,6 +1213,8 @@
         const data = {
             title: $('h1#title').text(),
             content: $('.ql-editor').html(),
+            userId: localStorage.getItem('userId'),
+            blogId: localStorage.getItem('blogId')
         }
 
         //обновить пост
@@ -1222,7 +1230,7 @@
                     'authorization': `Bearer ${token}`,
                 },
                 success: function () {
-                    alert('Отправлено на модерацию!')
+                    alert('Пост обновлён!')
                     $('h1#title').html('');
                     $(".ql-editor").html('')
 

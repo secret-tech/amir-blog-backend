@@ -37,6 +37,7 @@ export class PostsController {
   async findOne(@Param('id') id: string) {
     const post = await this.postsService.findById(+id, {
       order: { createdAt: 'DESC' },
+      relations: ['user', 'blog'],
     });
 
     return { ...post };
