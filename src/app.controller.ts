@@ -36,7 +36,6 @@ export class AppController {
   @Render('posts')
   async index() {
     const posts = await this.postsService.findAll();
-    console.log(posts);
     return { posts: posts, title: 'Главная' };
   }
 
@@ -49,6 +48,8 @@ export class AppController {
     if (!profile) {
       throw new UnauthorizedException(401);
     }
+
+    console.log('profile', profile);
 
     return {
       ...profile,

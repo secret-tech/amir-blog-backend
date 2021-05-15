@@ -14,7 +14,8 @@
                             <a href="/posts/{{id}}" class="btn btn-light">Читать далее &rarr;</a>
                         </div>
                         <div class="card-footer text-muted">
-                            {{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}} by {{user.name}}
+                            <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
+                            <a href="/profile/{{user.id}}">by {{user.name}}</a>
                         </div>
                     </div>
                 {{/if}}
