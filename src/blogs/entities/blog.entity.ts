@@ -17,7 +17,7 @@ export class Blog extends BaseEntity {
   @Column()
   title: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   description: string;
 
   @OneToMany(() => Post, (post) => post.id)
