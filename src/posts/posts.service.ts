@@ -47,8 +47,16 @@ export class PostsService {
     return this.postsRepository.findOne(id, options);
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return this.postsRepository.update(id, updatePostDto);
+  async update(id: number, updatePostDto: UpdatePostDto) {
+    const user = await this.usersService.findById(+updatePostDto.userId);
+    const blog = await this.blogsService.findById(+updatePostDto.blogId);
+    const post = {
+      title: updatePostDto.title,
+      content: updatePostDto.content,
+      user,
+      blog,
+    };
+    return this.postsRepository.update(id, post);
   }
 
   remove(id: number) {

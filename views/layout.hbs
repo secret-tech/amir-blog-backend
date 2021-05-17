@@ -1140,6 +1140,10 @@
         $('ul#userNavigation').show()
         $('.tl_article_buttons').show()
         $('.nav-item.editor').show()
+        $('#updateProfile').show()
+        $('div#profile input').each(function (index, input) {
+            input.removeAttribute('readonly')
+        })
     }
 
     function getURLParameter(sParam) {
