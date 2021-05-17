@@ -25,25 +25,29 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="fullName">Full Name</label>
-                                <input readonly type="text" class="form-control" id="fullName" placeholder="{{name}}">
+                                <input readonly type="text" class="form-control input-hidden" id="fullName"
+                                       placeholder="{{name}}" value="{{name}}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="eMail">Email</label>
-                                <input readonly type="email" class="form-control" id="eMail" placeholder="{{email}}">
+                                <input readonly type="email" class="form-control input-hidden" id="eMail"
+                                       placeholder="{{email}}" value="{{email}}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input readonly type="text" class="form-control" id="phone" placeholder="{{phone}}">
+                                <input readonly type="text" class="form-control input-hidden" id="phone"
+                                       placeholder="{{phone}}" value="{{phone}}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="website">Website URL</label>
-                                <input readonly type="url" class="form-control" id="website" placeholder="Website url">
+                                <input readonly type="url" class="form-control input-hidden" id="website"
+                                       placeholder="Website url" value="test.com">
                             </div>
                         </div>
                     </div>
@@ -54,13 +58,15 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="blog_name">Название</label>
-                                <input readonly type="name" class="form-control" id="blog_name" placeholder="{{blog.title}}">
+                                <input readonly type="name" name="title" class="form-control input-hidden" id="blog_title"
+                                       placeholder="{{blog.title}}" value="{{blog.title}}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="blog_desc">Описание</label>
-                                <input readonly type="name" class="form-control" id="blog_desc" placeholder="{{blog.description}}">
+                                <input readonly type="name" name="description" class="form-control input-hidden" id="blog_desc"
+                                       placeholder="{{blog.description}}" value="{{blog.description}}">
                             </div>
                         </div>
                     </div>
@@ -69,9 +75,18 @@
                             <div class="text-right">
                                 <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel
                                 </button>
-                                <button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+                                <button type="button" id="updateBlog" name="submit" class="btn btn-primary">Update
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="row gutters">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h6 class="mb-2 text-primary">Posts</h6>
+                        </div>
+                        <ul>
+                            <li><a href="/posts">Посмотреть список постов</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

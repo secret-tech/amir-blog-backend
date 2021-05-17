@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -34,7 +35,7 @@ export class BlogsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post(':id/update')
+  @Patch(':id/update')
   update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
     return this.blogsService.update(+id, updateBlogDto);
   }

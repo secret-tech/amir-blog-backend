@@ -66,11 +66,27 @@
         resize: none
     }
 
+    .input-hidden{
+        background: none !important;
+        border: none !important;
+    }
+
     .card-text {
         max-height: 100px;
         overflow: hidden;
         margin-bottom: 10px;
     }
+
+    .card-title{
+        margin-bottom: .75rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        color: inherit;
+        font-size: 2rem;
+    }
+
+
 
 
     .tl_page_wrap {
@@ -1141,8 +1157,9 @@
         $('.tl_article_buttons').show()
         $('.nav-item.editor').show()
         $('#updateProfile').show()
-        $('div#profile input').each(function (index, input) {
+        $('#profile input').each(function (index, input) {
             input.removeAttribute('readonly')
+            input.classList.remove('input-hidden')
         })
     }
 

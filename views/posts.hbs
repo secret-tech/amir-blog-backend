@@ -9,9 +9,8 @@
                 {{#if isPublished}}
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h2 class="card-title">{{title}}</h2>
+                            <a href="/posts/{{id}}" class="card-title">{{title}}</a>
                             <div class="card-text">{{{content}}}</div>
-                            <a href="/posts/{{id}}" class="btn btn-light">Читать далее &rarr;</a>
                         </div>
                         <div class="card-footer text-muted">
                             <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
