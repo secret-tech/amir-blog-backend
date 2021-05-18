@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row gutters" style="margin-top: 20px">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="account-settings">
                         <div class="user-profile">
@@ -80,16 +80,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mb-2 text-primary">Posts</h6>
-                        </div>
-                        <ul>
-                            <li><a href="/posts">Посмотреть список постов</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Blog Post -->
+{{#if posts.length}}
+    {{#each posts}}
+        {{#if isPublished}}
+                <div class="card mb-4" style="margin-top: 20px">
+                    <div class="card-body">
+                        <a href="/posts/{{id}}" class="card-title">{{title}}</a>
+                        <div class="card-text">{{{content}}}</div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
+                    </div>
+                </div>
+        {{/if}}
+    {{/each}}
+    </div>
+{{else}}
+    <p>no posts</p>
+{{/if}}
 </div>
