@@ -1155,12 +1155,14 @@
     }
 
     function showHidden(blogId) {
-        const profileId = $('#account').attr('data-blog') || $('.tl_article').attr('data-blog')
+        const userBlogId = $('#account').attr('data-blog') || $('.tl_article').attr('data-blog')
 
-        if (profileId == blogId){
-            $('ul#userNavigation').show()
+        $('ul#userNavigation').show()
+        $('.nav-item.editor').show()
+
+
+        if (userBlogId == blogId){
             $('.tl_article_buttons').show()
-            $('.nav-item.editor').show()
             $('#updateProfile').show()
             $('#account input').each(function (index, input) {
                 input.removeAttribute('readonly')
