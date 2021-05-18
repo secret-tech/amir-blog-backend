@@ -1133,7 +1133,7 @@
                         localStorage.setItem('userId', data.user.id);
                         localStorage.setItem('blogId', data.user.blog.id);
                         setProfileLink(data.user.id);
-                        showHidden(token, userId, blogId);
+                        showHidden(blogId);
                     }
                     , error: function (jqXHR, textStatus, err) {
                         console.log('text status ' + textStatus + ', err ' + err)
@@ -1144,33 +1144,28 @@
 
         if (token && userId && blogId) {
             setProfileLink(userId)
-            showHidden(token, userId, blogId);
+            showHidden(blogId);
         }
     })
 
     function setProfileLink(userId) {
-        const profileLink = $('a#profile')
+        const profileLink = $('a#profileLink')
         const profileUrl = $(profileLink).attr('href') + `/${userId}`
         $(profileLink).attr('href', profileUrl);
     }
 
-    function showHidden(token, userId, blogId) {
-        const profile = parseJwt(token)
+    function showHidden(blogId) {
+        const profileId = $('#account').attr('data-blog') || $('.tl_article').attr('data-blog')
 
-        //console.log('profile', profile.id)
-
-        if (profile.id == userId && profile.blog.id == blogId) {
-            console.log('user', profile)
+        if (profileId == blogId){
             $('ul#userNavigation').show()
             $('.tl_article_buttons').show()
             $('.nav-item.editor').show()
             $('#updateProfile').show()
-            $('#profile input').each(function (index, input) {
+            $('#account input').each(function (index, input) {
                 input.removeAttribute('readonly')
                 input.classList.remove('input-hidden')
             })
-        } else {
-            $('#updateProfile').hidden()
         }
     }
 
