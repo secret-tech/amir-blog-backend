@@ -36,18 +36,9 @@
                                        placeholder="{{email}}" value="{{email}}">
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input readonly type="text" class="form-control input-hidden" id="phone"
-                                       placeholder="{{phone}}" value="{{phone}}">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="website">Website URL</label>
-                                <input readonly type="url" class="form-control input-hidden" id="website"
-                                       placeholder="Website url" value="test.com">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="text-right" id="updateProfile" style="display:none;">
+                                <button type="button" name="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
                     </div>
@@ -58,25 +49,24 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="blog_name">Название</label>
-                                <input readonly type="name" name="title" class="form-control input-hidden" id="blog_title"
+                                <input readonly type="name" name="title" class="form-control input-hidden"
+                                       id="blog_title"
                                        placeholder="{{blog.title}}" value="{{blog.title}}">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="blog_desc">Описание</label>
-                                <input readonly type="name" name="description" class="form-control input-hidden" id="blog_desc"
+                                <input readonly type="name" name="description" class="form-control input-hidden"
+                                       id="blog_desc"
                                        placeholder="{{blog.description}}" value="{{blog.description}}">
                             </div>
                         </div>
                     </div>
-                    <div class="row gutters" id="updateProfile" style="display: none">
+                    <div class="row gutters" id="updateBlog" style="display: none">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="text-right">
-                                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel
-                                </button>
-                                <button type="button" id="updateBlog" name="submit" class="btn btn-primary">Update
-                                </button>
+                                <button type="button" name="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
                     </div>
@@ -84,6 +74,8 @@
             </div>
         </div>
     </div>
+
+<h1 class="title" style="text-align: center; margin: 40px;">{{blog.title}}</h1>
     <!-- Blog Post -->
 {{#if posts.length}}
     {{#each posts}}

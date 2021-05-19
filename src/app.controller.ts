@@ -2,10 +2,7 @@ import {
   Controller,
   Get,
   Param,
-  Post,
   Render,
-  Req,
-  Res,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -48,8 +45,6 @@ export class AppController {
     if (!profile) {
       throw new UnauthorizedException(401);
     }
-
-    console.log('profile', profile);
 
     return {
       ...profile,

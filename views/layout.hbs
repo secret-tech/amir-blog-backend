@@ -1164,6 +1164,7 @@
         if (userBlogId == blogId){
             $('.tl_article_buttons').show()
             $('#updateProfile').show()
+            $('#updateBlog').show()
             $('#account input').each(function (index, input) {
                 input.removeAttribute('readonly')
                 input.classList.remove('input-hidden')
@@ -1190,7 +1191,7 @@
         }).join(''));
 
         return JSON.parse(jsonPayload);
-    };
+    }
 </script>
 <script>
     //открыть редактор
@@ -1216,7 +1217,7 @@
     })
     //открыть редактирование поста
     $('#_edit_button').click((e) => {
-        e.preventDefault();
+        e.preventDefault()
         const token = localStorage.getItem('access_blog_token')
         $.ajax({
             url: "/editor",
@@ -1227,12 +1228,12 @@
             success: function (data, request, response) {
                 $('.ql-editor h1').remove()
                 const postId = $('article#_tl_editor').data("id")
-                const postTitle = $('title').text();
+                const postTitle = $('title').text()
                 const postContent = $('#_tl_editor').html()
 
-                const responseText = response.responseText;
-                const html = document.createElement('html');
-                html.innerHTML = responseText;
+                const responseText = response.responseText
+                const html = document.createElement('html')
+                html.innerHTML = responseText
                 $("html").replaceWith(html)
                 $(".ql-editor").replaceWith(postContent)
                 $('.ql-editor').attr("contenteditable", true)
@@ -1248,7 +1249,7 @@
     // отправить пост
     $('#_publish_button').click((e) => {
         e.preventDefault();
-        const token = localStorage.getItem('access_blog_token');
+        const token = localStorage.getItem('access_blog_token')
         const data = {
             title: $('h1#title').text(),
             content: $('.ql-editor').html(),
@@ -1270,7 +1271,7 @@
                 },
                 success: function () {
                     alert('Пост обновлён!')
-                    $('h1#title').html('');
+                    $('h1#title').html('')
                     $(".ql-editor").html('')
 
                 }
@@ -1292,7 +1293,7 @@
                 },
                 success: function () {
                     alert('Отправлено на модерацию!')
-                    $('h1#title').html('');
+                    $('h1#title').html('')
                     $(".ql-editor").html('')
 
                 }
@@ -1304,9 +1305,72 @@
     })
     //выход из блога
     $('a#exit').click((e) => {
-        e.preventDefault();
-        localStorage.clear();
+        e.preventDefault()
+        localStorage.clear()
         window.location.replace('/')
+    })
+
+    //обновить профиль
+    $('#updateProfile button').click((e) => {
+        e.preventDefault()
+        const userId = localStorage.getItem('userId')
+        const token = localStorage.getItem('access_blog_token')
+        history.pushState(null, null, `/users/${userId}`);
+        const data = {
+            name: $('input#fullName').val(),
+            email: $('input#eMail').val(),
+        }
+
+        $.ajax({
+            url: `${userId}/update`,
+            type: 'PATCH',
+            cache: false,
+            data: data,
+            headers: {
+                'authorization': `Bearer ${token}`,
+            },
+            success: function () {
+                document.location.assign(`/profile/${userId}`);
+            }
+            , error: function (jqXHR, textStatus, err) {
+                alert('text status ' + textStatus + ', err ' + err)
+                document.location.assign(`/profile/${userId}`);
+            }
+        })
+
+    })
+
+    //обновить блог
+    $('#updateBlog button').click((e)=> {
+        e.preventDefault()
+        const userId = localStorage.getItem('userId')
+        const blogId = localStorage.getItem('blogId')
+        const token = localStorage.getItem('access_blog_token')
+        history.pushState(null, null, `/blogs/${blogId}`);
+
+        const data = {
+            title: $('input#blog_title').val(),
+            description: $('input#blog_desc').val(),
+        }
+
+        $.ajax({
+            url: `${blogId}/update`,
+            type: 'PATCH',
+            cache: false,
+            data: data,
+            headers: {
+                'authorization': `Bearer ${token}`,
+            },
+            success: function () {
+                document.location.assign(`/profile/${userId}`);
+            }
+            , error: function (jqXHR, textStatus, err) {
+                alert('text status ' + textStatus + ', err ' + err)
+                document.location.assign(`/profile/${userId}`);
+            }
+        })
+
+        console.log('update blog')
     })
 </script>
 
