@@ -1,83 +1,163 @@
-<div class="container">
-    <div class="row gutters" style="margin-top: 20px">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card h-100">
-                <div class="card-body" id="account" data-profile="{{id}}" data-blog="{{blog.id}}">
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mb-2 text-primary">Профиль</h6>
+<div class="block-header">
+    <div class="logo"><img src="../img/avatar-no.png" alt=""></div>
+    <div class="title-block">
+        <h1>Nick</h1>
+        <p>I’ve used flow states to write consistently</p>
+    </div>
+</div>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts" type="button"
+                role="tab" aria-controls="home" aria-selected="true">
+            <img src="../img/file-paper-2-line.svg" alt="">
+            My posts
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+
+        <a class="nav-link" id="bookmarks-tab" data-bs-toggle="tab" data-bs-target="#bookmarks" type="button"
+                role="tab" aria-controls="bookmarks" aria-selected="false">
+            <img src="../img/bookmark-line.svg" alt="">
+            Bookmarks
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button"
+                role="tab" aria-controls="settings" aria-selected="false">
+            <img src="../img/settings.svg" alt="">
+            Settings
+        </a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+<div class="tab-pane active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+    <!-- Blog Post -->
+    {{#if posts.length}}
+        {{#each posts}}
+            {{#if isPublished}}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="profile-img">A</div>
+                            <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
+                            <a href="/profile/{{user.id}}">by {{user.name}}</a>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="username">username</label>
-                                <input readonly type="text" class="form-control input-hidden" id="username"
-                                       placeholder="{{name}}" value="{{name}}">
-                            </div>
+                        <img src="../img/image.jpg" alt="">
+                        <a href="/posts/{{id}}" class="card-title">{{title}}</a>
+                        <div class="card-text">{{{content}}}</div>
+                        <ul class="card-links">
+                            <li class="add-favorite">
+                                <img src="../img/heart-line.svg" alt="">
+                                <span class="like-count">32</span>
+                            </li>
+                            <li class="add-comment">
+                                <img src="../img/chat-1-line.svg" alt="">
+                                <span class="comment-count">0</span>
+                            </li>
+                            <li class="save-post">
+                                <img src="../img/bookmark-line.svg" alt="">
+                                <span class="bookmark-count">7</span>
+                            </li>
+                        </ul>
+                        <hr/>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+        <button class="button_more">
+            Load more
+        </button>
+    </div>
+    {{else}}
+        <p>Have something to share?</p>
+        <button class="btn-purple" style="width: 206px;height: 56px;"></button>
+    {{/if}}
+<div class="tab-pane" id="bookmarks" role="tabpanel" aria-labelledby="bookmarks-tab">
+    <!-- Blog Post -->
+    {{#if posts.length}}
+        {{#each posts}}
+            {{#if isPublished}}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="profile-img">A</div>
+                            <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
+                            <a href="/profile/{{user.id}}">by {{user.name}}</a>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="eMail">Email</label>
-                                <input readonly type="email" class="form-control input-hidden" id="eMail"
-                                       placeholder="{{email}}" value="{{email}}">
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="text-right" id="updateProfile" style="display:none;">
-                                <button type="button" name="submit" class="btn btn-primary">изменить</button>
-                            </div>
+                        <img src="../img/image.jpg" alt="">
+                        <a href="/posts/{{id}}" class="card-title">{{title}}</a>
+                        <div class="card-text">{{{content}}}</div>
+                        <ul class="card-links">
+                            <li class="add-favorite">
+                                <img src="../img/heart-line.svg" alt="">
+                                <span class="like-count">32</span>
+                            </li>
+                            <li class="add-comment">
+                                <img src="../img/chat-1-line.svg" alt="">
+                                <span class="comment-count">0</span>
+                            </li>
+                            <li class="save-post">
+                                <img src="../img/bookmark-line-active.svg" alt="">
+                                <span class="bookmark-count">7</span>
+                            </li>
+                        </ul>
+                        <hr/>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+        <button class="button_more">
+            Load more
+        </button>
+    </div>
+    {{else}}
+        <p>Have something to share?</p>
+        <button class="btn-purple" style="width: 206px;height: 56px;"></button>
+    {{/if}}
+<div class="tab-pane " id="settings" role="tabpanel" aria-labelledby="settings-tab">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <div class="card-body" id="account" data-profile="{{id}}" data-blog="{{blog.id}}">
+                <div class="row gutters">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="username">Name</label>
+                            <input readonly type="text" class="form-control input-hidden" id="username"
+                                   placeholder="{{name}}" value="{{name}}">
                         </div>
                     </div>
-                    <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mt-3 mb-2 text-primary">Блог</h6>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="blog_name">Название</label>
-                                <input readonly type="name" name="title" class="form-control input-hidden"
-                                       id="blog_title"
-                                       placeholder="{{blog.title}}" value="{{blog.title}}">
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="blog_desc">Описание</label>
-                                <input readonly type="name" name="description" class="form-control input-hidden"
-                                       id="blog_desc"
-                                       placeholder="{{blog.description}}" value="{{blog.description}}">
-                            </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="eMail">Email</label>
+                            <input readonly type="email" class="form-control input-hidden" id="eMail"
+                                   placeholder="{{email}}" value="{{email}}">
                         </div>
                     </div>
-                    <div class="row gutters" id="updateBlog" style="display: none">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="text-right">
-                                <button type="button" name="submit" class="btn btn-primary">изменить</button>
-                            </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="username">BIO</label>
+                            <input readonly type="text" class="form-control input-hidden" id="BIO"
+                                   placeholder="" value="I’ve used flow states to write consistently">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="eMail">Username</label>
+                            <input readonly type="email" class="form-control input-hidden" id="Username"
+                                   placeholder="" value="https://journal.amir.capital/Shawn_Jr">
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="text-right" id="updateProfile" style="display:none;">
+                            <button type="button" name="submit" class="btn btn-gray save-changes">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-<h1 class="title" style="text-align: center; margin: 40px;">{{blog.title}}</h1>
-    <!-- Blog Post -->
-{{#if posts.length}}
-    {{#each posts}}
-        {{#if isPublished}}
-                <div class="card mb-4" style="margin-top: 20px">
-                    <div class="card-body">
-                        <a href="/posts/{{id}}" class="card-title">{{title}}</a>
-                        <div class="card-text">{{{content}}}</div>
-                    </div>
-                    <div class="card-footer text-muted">
-                        <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
-                    </div>
-                </div>
-        {{/if}}
-    {{/each}}
-    </div>
-{{else}}
-    <p>no posts</p>
-{{/if}}
+</div>
 </div>

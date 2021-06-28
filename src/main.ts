@@ -12,6 +12,7 @@ const config = configuration();
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  console.log('dirname', __dirname);
   app.useGlobalPipes(new ValidationPipe());
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
@@ -24,6 +25,7 @@ async function bootstrap() {
   });
 
   app.enableCors();
+  console.log('port', config.app_port);
 
   await app.listen(config.app_port);
 }

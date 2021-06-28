@@ -1,28 +1,47 @@
+{{> sidebar}}
 <!-- Page Content -->
-<div class="container">
-
-    <div class="row">
-    <div class="col-md-12">
-        <!-- Blog Post -->
-        {{#if posts.length}}
-            {{#each posts}}
-                {{#if isPublished}}
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <a href="/posts/{{id}}" class="card-title">{{title}}</a>
-                            <div class="card-text">{{{content}}}</div>
+<div class="col-9">
+    <!-- Blog Post -->
+{{#if posts.length}}
+    {{#each posts}}
+        {{#if isPublished}}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="profile-img">V</div>
+                            <a class="username" href="/profile/{{user.id}}"> {{user.name}} </a>
+                            <time class="post-time"> {{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}} </time>
                         </div>
-                        <div class="card-footer text-muted">
-                            <span>{{dateFormat updatedAt "dddd, MMMM Do YYYY, h:mm:ss a"}}</span>
-                            <a href="/profile/{{user.id}}">by {{user.name}}</a>
+                        <img src="img/image.jpg" alt="">
+                        <a href="/posts/{{id}}" class="card-title">{{title}}</a>
+                        <div class="card-text">
+                            {{{content}}}
                         </div>
+                        <ul class="card-links">
+                            <li class="add-favorite">
+                                <img src="img/heart-line.svg" alt="">
+                                <span class="like-count">32</span>
+                            </li>
+                            <li class="add-comment">
+                                <img src="img/chat-1-line.svg" alt="">
+                                <span class="comment-count">0</span>
+                            </li>
+                            <li class="save-post">
+                                <img src="img/bookmark-line.svg" alt="">
+                                <span class="bookmark-count">7</span>
+                            </li>
+                        </ul>
+                        <hr/>
                     </div>
-                {{/if}}
-            {{/each}}
-        </div>
-        {{else}}
-            <p>no posts</p>
+                </div>
         {{/if}}
+    {{/each}}
+    <button class="button_more">
+        Load more
+    </button>
     </div>
-</div>
+{{else}}
+    <p>Have something to share?</p>
+    <button class="btn-purple" style="width: 206px;height: 56px;"></button>
+{{/if}}
 
